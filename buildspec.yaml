@@ -15,7 +15,6 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 531410883791.dkr.ecr.ap-south-1.amazonaws.com
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 531410883791.dkr.ecr.ap-south-1.amazonaws.com
   build:
     commands:
       - echo Building the Java project...
@@ -23,8 +22,8 @@ phases:
       - echo Building the Docker image...
       - docker build -t simple-spring-boot-app .
       - echo Pushing the Docker image...
-      - docker tag simple-spring-boot-app:latest 531410883791.dkr.ecr.ap-south-1.amazonaws.com/simple-spring-boot-app:latest
-      - docker push 531410883791.dkr.ecr.ap-south-1.amazonaws.com/simple-spring-boot-app:latest
+      - docker tag my-app:latest 531410883791.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest
+      - docker push 531410883791.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest
       # Additional build commands can be added here
 
   post_build:
