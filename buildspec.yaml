@@ -1,0 +1,34 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Java 17...
+      - apt-get update && apt-get install -y openjdk-17-jdk
+      - apt-get install -y maven
+
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 531410883791.dkr.ecr.ap-south-1.amazonaws.com
+
+  build:
+    commands:
+      - echo Building the Java project...
+      - mvn clean install
+      - echo Building the Docker image...
+      - docker build -t simple-spring-boot-app .
+      - echo Pushing the Docker image...
+      - docker tag simple-spring-boot-app:latest 531410883791.dkr.ecr.ap-south-1.amazonaws.com/simple-spring-boot-app:latest
+      - docker push 531410883791.dkr.ecr.ap-south-1.amazonaws.com/simple-spring-boot-app:latest
+      # Additional build commands can be added here
+
+  post_build:
+    commands:
+      - echo Running post-build actions...
+      # Additional post-build commands can be added here
+
+artifacts:
+  files:
+    - target/awsCICD-0.0.1-SNAPSHOT.jar
+  discard-paths: yes
