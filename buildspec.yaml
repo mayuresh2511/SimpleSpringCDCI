@@ -5,13 +5,17 @@ phases:
     commands:
       - echo Installing Java 17...
       - apt-get update && apt-get install -y openjdk-17-jdk
+      - - echo Installing Java Maven...
       - apt-get install -y maven
+      - echo Installing AWS CLI...
+      - apt-get install -y python3-pip
+      - sudo pip3 install awscli
 
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 531410883791.dkr.ecr.ap-south-1.amazonaws.com
-
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 531410883791.dkr.ecr.ap-south-1.amazonaws.com
   build:
     commands:
       - echo Building the Java project...
