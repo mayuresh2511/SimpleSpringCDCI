@@ -16,7 +16,7 @@ spec:
         app: springApp
     spec:
       containers:
-        - name: springApp
+        - name: spring-app
           image: maymar25/simple-springboot-cicd
           ports:
             - containerPort: 8080
