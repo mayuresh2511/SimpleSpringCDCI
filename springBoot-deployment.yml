@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springBoot-deployment
+  namespace: spring-boot
+  labels:
+    app: springApp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springApp
+  template:
+    metadata:
+      labels:
+        app: springApp
+    spec:
+      containers:
+        - name: springApp
+          image: maymar25/simple-springboot-cicd
+          ports:
+            - containerPort: 8080
